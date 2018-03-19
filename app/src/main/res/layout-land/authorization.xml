@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <TextView
         android:id="@+id/login_user_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:text="Логин / телефон"
+        android:text="Логин"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="serif"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="15dp"/>
 
     <EditText
         android:id="@+id/login_user"
@@ -50,6 +49,17 @@
         android:text="Запомнить вход"
         android:textStyle="bold"
         android:typeface="serif" />
+
+    <Button
+        android:id="@+id/reg_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_light"
+        android:text="Регистрация"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/login_button"
