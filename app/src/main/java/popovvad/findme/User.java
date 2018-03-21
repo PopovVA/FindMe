@@ -1,18 +1,21 @@
 package popovvad.findme;
 
-import android.support.v7.app.AppCompatActivity;
+
+import android.content.Context;
 import android.widget.Toast;
 
 /**
  * Created by Вадим on 19.03.2018.
  */
 
-public class User extends AppCompatActivity {
+public class User {
 
-    private String user;
-    private String password;
+    private String user = new String();
+    private String password = new String();
+    private Context context;
 
-    User(String user, String password){
+    User(String user, String password, Context context){
+        this.context = context;
         setUser(user,password);
     }
 
@@ -39,6 +42,7 @@ public class User extends AppCompatActivity {
         }
         else if (user.length()>10){
             userMessage("Логин не может быть больше 10 символов");
+            return false;
         }
         else if (password.length()<=0){
             userMessage("Пароль не может быть пустым");
@@ -51,7 +55,7 @@ public class User extends AppCompatActivity {
         return true;
     }
     private void userMessage(String message){
-        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
     }
 
 }
