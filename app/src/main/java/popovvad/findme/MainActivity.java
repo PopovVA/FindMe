@@ -28,11 +28,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.login_button:
 
-                User user = new User("Popov","",getApplicationContext());
-                user.login();
-
-                Intent intentLog = new Intent(this, MapActivity.class);
-                startActivity(intentLog);
+                User user = new User("Popov","123",getApplicationContext());
+                if(user.login()){
+                    Intent intentLog = new Intent(this, MapActivity.class);
+                    startActivity(intentLog);
+                    break;
+                }
                 break;
             case R.id.reg_button:
                 Intent intentReg = new Intent(this, MapActivity.class);
