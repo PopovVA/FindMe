@@ -68,7 +68,7 @@
             android:layout_marginLeft="5pt"
             android:layout_marginRight="5pt"
             android:ems="10"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             android:textSize="18sp" />
 
         <EditText
@@ -80,7 +80,7 @@
             android:layout_marginLeft="5pt"
             android:layout_marginRight="5pt"
             android:ems="10"
-            android:inputType="phone"
+            android:inputType="text"
             android:textSize="18sp" />
 
         <Button

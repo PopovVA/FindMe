@@ -4,6 +4,9 @@ package popovvad.findme;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.io.IOException;
+
+
 /**
  * Created by Вадим on 19.03.2018.
  */
@@ -23,10 +26,14 @@ public class User {
         this.user = user; this.password = password;
     }
     public String getUsername(){
-        return this.user;
+        return user;
     }
     public String getUserpassword(){
-        return this.password;
+        return password;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public Boolean login () {
@@ -35,21 +42,31 @@ public class User {
         }
         return true;
     }
+    public Boolean registration() throws IOException {
+        if (!(loginControl())) {
+            return false;
+        }
+        ServerInteraction ServerInteractionLogin = new ServerInteraction("Popovvad.ru/login.php",
+                "{“username”:”"+ getUsername() +"”, “password”:”"+getUserpassword()+"”}",getContext());
+        ServerInteractionLogin.PostQuery();
+
+        return true;
+    }
     private Boolean loginControl(){
-        if (user.length()<=0){
+        if (getUsername().length()<=0){
             userMessage("Логин не может быть пустым");
           return false;
         }
-        else if (user.length()>10){
-            userMessage("Логин не может быть больше 10 символов");
+        else if (getUsername().length()>15){
+            userMessage("Логин не может быть больше 15 символов");
             return false;
         }
-        else if (password.length()<=0){
+        else if (getUserpassword().length()<=0){
             userMessage("Пароль не может быть пустым");
             return false;
         }
-        else if(password.length()> 10){
-            userMessage("Пароль не может быть больше 10 символов");
+        else if(getUserpassword().length()> 15){
+            userMessage("Пароль не может быть больше 15 символов");
             return false;
         }
         return true;

@@ -5,11 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button login_button;
     Button reg_button;
+
+    EditText login_user;
+    EditText login_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         reg_button = (Button) findViewById(R.id.reg_button);
         reg_button.setOnClickListener(this);
+
+        login_user = (EditText) findViewById(R.id.login_user);
+        login_password = (EditText) findViewById(R.id.login_password);
     }
 
     @Override
@@ -28,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.login_button:
 
-                User user = new User("Popov","123",getApplicationContext());
+                User user = new User(login_user.getText().toString(),login_password.getText().toString(),getApplicationContext());
                 if(user.login()){
                     Intent intentLog = new Intent(this, MapActivity.class);
                     startActivity(intentLog);
@@ -36,8 +45,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.reg_button:
-                Intent intentReg = new Intent(this, MapActivity.class);
-                startActivity(intentReg);
+                User userReg = new User(login_user.getText().toString(),login_password.getText().toString(),getApplicationContext());
+                try {
+                    if(userReg.registration()){
+                        Intent intentReg = new Intent(this, MapActivity.class);
+                        startActivity(intentReg);
+                        break;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;
