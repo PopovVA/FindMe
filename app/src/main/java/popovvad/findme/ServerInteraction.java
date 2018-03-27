@@ -1,8 +1,10 @@
 package popovvad.findme;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -14,7 +16,7 @@ import okhttp3.Response;
  * Created by Вадим on 21.03.2018.
  */
 
-public class ServerInteraction {
+public class ServerInteraction extends AsyncTask<String, Integer, String> {
 
     private String url;
     private String json;
@@ -22,8 +24,8 @@ public class ServerInteraction {
 
     ServerInteraction(String url, String json, Context context){
         this.context = context;
-        setUrl(this.url);
-        setJson(this.json);
+        setUrl(url);
+        setJson(json);
     }
 
     private void setJson(String json) {
@@ -35,15 +37,31 @@ public class ServerInteraction {
     }
 
     public String getUrl(){
-        return url;
+        return this.url;
     }
 
     public String getJson(){
-        return json;
+        return this.json;
     }
 
-    public String PostQuery() throws IOException {
+    @Override
+    protected String doInBackground(String... arg) {
+        try {
+            PostQuery();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    @Override
+    protected void onPostExecute(String s) {
+
+    }
+
+
+
+    public String PostQuery() throws IOException {
         OkHttpClient client = new OkHttpClient();
         String json = getJson();
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
@@ -52,8 +70,8 @@ public class ServerInteraction {
                 .post(body)
                 .build();
         Response response = client.newCall(request).execute();
+        String responseString = response.body().string();
         return "123";
-
     }
 
 

@@ -46,9 +46,9 @@ public class User {
         if (!(loginControl())) {
             return false;
         }
-        ServerInteraction ServerInteractionLogin = new ServerInteraction("Popovvad.ru/login.php",
+        ServerInteraction ServerInteractionLogin = new ServerInteraction("http://popovvad.ru/test.php",
                 "{“username”:”"+ getUsername() +"”, “password”:”"+getUserpassword()+"”}",getContext());
-        ServerInteractionLogin.PostQuery();
+        ServerInteractionLogin.execute();
 
         return true;
     }
