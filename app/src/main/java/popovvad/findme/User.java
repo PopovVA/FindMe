@@ -38,11 +38,29 @@ public class User {
         return context;
     }
 
-    public Boolean login () {
+    public Boolean login () throws ExecutionException, InterruptedException {
         if (!(loginControl())) {
             return false;
         }
-        return true;
+        ServerInteraction ServerInteractionLog = new ServerInteraction("http://popovvad.ru/login.php",
+                "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}",getContext());
+        ServerInteractionLog.execute();
+        String response = ServerInteractionLog.get();
+        Boolean returnable = true;
+        switch (response){
+            case "failed" : returnable = false;
+                userMessage("Пользователь с таким именем не найден");
+                break;
+            case "successful" : returnable = true;
+                break;
+            case "dbaseError" : returnable = false;
+                userMessage("Ошибка подключения к базе данных");
+                break;
+            default: returnable = false;
+                userMessage("Что то пошло не так");
+        }
+
+        return returnable;
     }
     public Boolean registration() throws IOException, ExecutionException, InterruptedException {
         if (!(loginControl())) {
