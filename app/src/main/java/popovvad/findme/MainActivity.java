@@ -39,10 +39,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.login_button:
 
                 User user = new User(login_user.getText().toString(),login_password.getText().toString(),getApplicationContext());
-                if(user.login()){
-                    Intent intentLog = new Intent(this, MapActivity.class);
-                    startActivity(intentLog);
-                    break;
+                try {
+                    if(user.login()){
+                        Intent intentLog = new Intent(this, MapActivity.class);
+                        startActivity(intentLog);
+                        break;
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 break;
             case R.id.reg_button:
