@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -21,6 +20,7 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
     private String url;
     private String json;
     private Context context;
+    private String postresponse;
 
     ServerInteraction(String url, String json, Context context){
         this.context = context;
@@ -36,6 +36,14 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
         this.url = url;
     }
 
+    private void setPostresponse(String postresponse){
+     this.postresponse = postresponse;
+    }
+
+    public String getPostresponse(){
+        return this.postresponse;
+    }
+
     public String getUrl(){
         return this.url;
     }
@@ -47,7 +55,7 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... arg) {
         try {
-            PostQuery();
+            return PostQuery();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,10 +64,8 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String s) {
-
+        //
     }
-
-
 
     public String PostQuery() throws IOException {
         OkHttpClient client = new OkHttpClient();
@@ -70,8 +76,7 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
                 .post(body)
                 .build();
         Response response = client.newCall(request).execute();
-        String responseString = response.body().string();
-        return "123";
+        return response.body().string();
     }
 
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -42,15 +44,29 @@ public class User {
         }
         return true;
     }
-    public Boolean registration() throws IOException {
+    public Boolean registration() throws IOException, ExecutionException, InterruptedException {
         if (!(loginControl())) {
             return false;
         }
-        ServerInteraction ServerInteractionLogin = new ServerInteraction("http://popovvad.ru/test.php",
-                "{“username”:”"+ getUsername() +"”, “password”:”"+getUserpassword()+"”}",getContext());
-        ServerInteractionLogin.execute();
+        ServerInteraction ServerInteractionReg = new ServerInteraction("http://popovvad.ru/register.php",
+                "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}",getContext());
+        ServerInteractionReg.execute();
+        String response = ServerInteractionReg.get();
+        Boolean returnable = true;
+        switch (response){
+            case "failed" : returnable = false;
+            userMessage("Пользователь с таким именем уже существует");
+            break;
+            case "successful" : returnable = true;
+                break;
+            case "dbaseError" : returnable = false;
+            userMessage("Ошибка подключения к базе данных");
+                break;
+                default: returnable = false;
+                userMessage("Что то пошло не так");
+        }
 
-        return true;
+        return returnable;
     }
     private Boolean loginControl(){
         if (getUsername().length()<=0){
