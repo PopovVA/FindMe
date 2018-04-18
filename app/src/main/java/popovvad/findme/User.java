@@ -38,17 +38,20 @@ public class User {
         return context;
     }
 
-    public Boolean login () throws ExecutionException, InterruptedException {
+    public Boolean login () throws IOException, ExecutionException, InterruptedException {
         if (!(loginControl())) {
             return false;
         }
-        ServerInteraction ServerInteractionLog = new ServerInteraction("http://popovvad.ru/login.php",
+        ServerInteraction ServerInteractionLog = new ServerInteraction("http://popovvad.ru/authorization.php",
                 "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}",getContext());
         ServerInteractionLog.execute();
         String response = ServerInteractionLog.get();
-        Boolean returnable = true;
+        Boolean returnable;
         switch (response){
-            case "failed" : returnable = false;
+            case "failed_password" : returnable = false;
+                userMessage("Неверный пароль");
+                break;
+            case "failed_username" : returnable = false;
                 userMessage("Пользователь с таким именем не найден");
                 break;
             case "successful" : returnable = true;
@@ -70,7 +73,7 @@ public class User {
                 "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}",getContext());
         ServerInteractionReg.execute();
         String response = ServerInteractionReg.get();
-        Boolean returnable = true;
+        Boolean returnable;
         switch (response){
             case "failed" : returnable = false;
             userMessage("Пользователь с таким именем уже существует");
