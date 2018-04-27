@@ -1,6 +1,10 @@
 package popovvad.findme;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,19 +18,25 @@ public class MapActivity extends AppCompatActivity {
 
     private MapView mapView;
 
+    private static final int PERMISSION_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");
         MapKitFactory.initialize(this);
-
-        // Укажите имя activity вместо map.
-        setContentView(R.layout.map_activity);
-        mapView = (MapView)findViewById(R.id.mapview);
-        mapView.getMap().move(
-                new CameraPosition(new Point(55.751574, 37.573856), 11.0f, 0.0f, 0.0f),
-                new Animation(Animation.Type.SMOOTH, 0),
-                null);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST);
+        }else{
+            GeoPosition geoPosition = new GeoPosition();
+            geoPosition.SetUpLocationListener(this);
+            setContentView(R.layout.map_activity);
+            mapView = (MapView)findViewById(R.id.mapview);
+            mapView.getMap().move(
+                    new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 11.0f, 0.0f, 0.0f),
+                    new Animation(Animation.Type.SMOOTH, 0),
+                    null);
+        }
     }
 
     @Override
