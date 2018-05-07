@@ -3,6 +3,7 @@ package popovvad.findme;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.mapview.MapView;
+import com.yandex.runtime.image.ImageProvider;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -33,9 +35,10 @@ public class MapActivity extends AppCompatActivity {
             setContentView(R.layout.map_activity);
             mapView = (MapView)findViewById(R.id.mapview);
             mapView.getMap().move(
-                    new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 11.0f, 0.0f, 0.0f),
+                    new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
                     new Animation(Animation.Type.SMOOTH, 0),
                     null);
+            mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(),geoPosition.getLongitude()),ImageProvider.fromResource(this,R.drawable.mygeo_icon));
         }
     }
 
