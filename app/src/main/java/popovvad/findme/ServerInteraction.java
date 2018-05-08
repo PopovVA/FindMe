@@ -23,7 +23,7 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
     private String postresponse;
 
     ServerInteraction(String url, String json, Context context){
-        this.context = context;
+        context = context;
         setUrl(url);
         setJson(json);
     }

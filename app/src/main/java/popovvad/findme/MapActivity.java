@@ -1,13 +1,12 @@
 package popovvad.findme;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
@@ -40,6 +39,15 @@ public class MapActivity extends AppCompatActivity {
                     null);
             mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(),geoPosition.getLongitude()),ImageProvider.fromResource(this,R.drawable.mygeo_icon));
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Опции");
+        menu.add("FAQ");
+        menu.add("Написать разработчику");
+        menu.add("Выход");
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
