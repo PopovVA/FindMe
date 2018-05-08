@@ -49,18 +49,18 @@ public class User {
         Boolean returnable;
         switch (response){
             case "failed_password" : returnable = false;
-                userMessage("Неверный пароль");
+                Message.showMessage(getContext(),"Неверный пароль");
                 break;
             case "failed_username" : returnable = false;
-                userMessage("Пользователь с таким именем не найден");
+                Message.showMessage(getContext(),"Пользователь с таким именем не найден");
                 break;
             case "successful" : returnable = true;
                 break;
             case "dbaseError" : returnable = false;
-                userMessage("Ошибка подключения к базе данных");
+                Message.showMessage(getContext(),"Ошибка подключения к базе данных");
                 break;
             default: returnable = false;
-                userMessage("Что то пошло не так");
+                Message.showMessage(getContext(),"Что то пошло не так");
         }
 
         return returnable;
@@ -76,40 +76,37 @@ public class User {
         Boolean returnable;
         switch (response){
             case "failed" : returnable = false;
-            userMessage("Пользователь с таким именем уже существует");
+                Message.showMessage(getContext(),"Пользователь с таким именем уже существует");
             break;
             case "successful" : returnable = true;
                 break;
             case "dbaseError" : returnable = false;
-            userMessage("Ошибка подключения к базе данных");
+                Message.showMessage(getContext(),"Ошибка подключения к базе данных");
                 break;
                 default: returnable = false;
-                userMessage("Что то пошло не так");
+                    Message.showMessage(getContext(),"Что то пошло не так");
         }
 
         return returnable;
     }
     private Boolean loginControl(){
         if (getUsername().length()<=0){
-            userMessage("Логин не может быть пустым");
+            Message.showMessage(getContext(),"Логин не может быть пустым");
           return false;
         }
         else if (getUsername().length()>15){
-            userMessage("Логин не может быть больше 15 символов");
+            Message.showMessage(getContext(),"Логин не может быть больше 15 символов");
             return false;
         }
         else if (getUserpassword().length()<=0){
-            userMessage("Пароль не может быть пустым");
+            Message.showMessage(getContext(),"Пароль не может быть пустым");
             return false;
         }
         else if(getUserpassword().length()> 15){
-            userMessage("Пароль не может быть больше 15 символов");
+            Message.showMessage(getContext(),"Пароль не может быть больше 15 символов");
             return false;
         }
         return true;
-    }
-    private void userMessage(String message){
-        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
     }
 
 }

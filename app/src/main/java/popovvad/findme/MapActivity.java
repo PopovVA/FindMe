@@ -33,11 +33,16 @@ public class MapActivity extends AppCompatActivity {
             geoPosition.SetUpLocationListener(this);
             setContentView(R.layout.map_activity);
             mapView = (MapView)findViewById(R.id.mapview);
-            mapView.getMap().move(
-                    new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
-                    new Animation(Animation.Type.SMOOTH, 0),
-                    null);
-            mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(),geoPosition.getLongitude()),ImageProvider.fromResource(this,R.drawable.mygeo_icon));
+            try {
+                mapView.getMap().move(
+                        new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
+                        new Animation(Animation.Type.SMOOTH, 0),
+                        null);
+                mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.mygeo_icon));
+            } catch (Exception t){
+             Message.showMessage(this,"Ошибка определения местоположения");
+            }
+
         }
     }
 
