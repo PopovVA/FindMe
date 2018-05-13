@@ -19,14 +19,19 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
 
     private String url;
     private String json;
-    private Context context;
-    private String postresponse;
+    //private Context context;
+    private String request;
 
-    ServerInteraction(String url, String json, Context context){
-        context = context;
+    ServerInteraction(String url, String json, String request) {
+        //setContext(context);
         setUrl(url);
         setJson(json);
+        setRequest(request);
     }
+
+    //public void setContext(Context context) {
+    //    this.context = context;
+    //}
 
     private void setJson(String json) {
         this.json = json;
@@ -36,26 +41,27 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
         this.url = url;
     }
 
-    private void setPostresponse(String postresponse){
-     this.postresponse = postresponse;
+    public String getRequest() {
+        return request;
     }
 
-    public String getPostresponse(){
-        return this.postresponse;
+    public void setRequest(String request) {
+        this.request = request;
     }
 
-    public String getUrl(){
-        return this.url;
+
+    public String getUrl() {
+        return url;
     }
 
-    public String getJson(){
-        return this.json;
+    public String getJson() {
+        return json;
     }
 
     @Override
     protected String doInBackground(String... arg) {
         try {
-            return PostQuery();
+            return ServerQuery();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,17 +73,25 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
         //
     }
 
-    public String PostQuery() throws IOException {
+    public String ServerQuery() throws IOException {
         OkHttpClient client = new OkHttpClient();
         String json = getJson();
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
-        Request request = new Request.Builder()
-                .url(getUrl())
-                .post(body)
-                .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+        if (request == "post") {
+            Request request = new Request.Builder()
+                    .url(getUrl())
+                    .post(body)
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        } else if (request == "put") {
+            Request request = new Request.Builder()
+                    .url(getUrl())
+                    .put(body)
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+        return null;
     }
-
-
 }

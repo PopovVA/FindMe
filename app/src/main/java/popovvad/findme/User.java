@@ -20,8 +20,12 @@ public class User {
     private Context context;
 
     User(String user, String password, Context context){
-        this.context = context;
+        setContext(context);
         setUser(user,password);
+    }
+
+    public void setContext(Context context){
+        this.context = context;
     }
 
     public void setUser(String user, String password){
@@ -43,7 +47,7 @@ public class User {
             return false;
         }
         ServerInteraction ServerInteractionLog = new ServerInteraction("http://popovvad.ru/authorization.php",
-                "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}",getContext());
+                "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}","post");
         ServerInteractionLog.execute();
         String response = ServerInteractionLog.get();
         Boolean returnable;
@@ -70,21 +74,21 @@ public class User {
             return false;
         }
         ServerInteraction ServerInteractionReg = new ServerInteraction("http://popovvad.ru/register.php",
-                "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}",getContext());
+                "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}","post");
         ServerInteractionReg.execute();
         String response = ServerInteractionReg.get();
         Boolean returnable;
         switch (response){
             case "failed" : returnable = false;
                 Message.showMessage(getContext(),"Пользователь с таким именем уже существует");
-            break;
+                break;
             case "successful" : returnable = true;
                 break;
             case "dbaseError" : returnable = false;
                 Message.showMessage(getContext(),"Ошибка подключения к базе данных");
                 break;
-                default: returnable = false;
-                    Message.showMessage(getContext(),"Что то пошло не так");
+            default: returnable = false;
+                Message.showMessage(getContext(),"Что то пошло не так");
         }
 
         return returnable;
@@ -92,7 +96,7 @@ public class User {
     private Boolean loginControl(){
         if (getUsername().length()<=0){
             Message.showMessage(getContext(),"Логин не может быть пустым");
-          return false;
+            return false;
         }
         else if (getUsername().length()>15){
             Message.showMessage(getContext(),"Логин не может быть больше 15 символов");
