@@ -2,11 +2,9 @@ package popovvad.findme;
 
 
 import android.content.Context;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 
 /**

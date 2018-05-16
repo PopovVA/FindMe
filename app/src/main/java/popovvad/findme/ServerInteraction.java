@@ -1,6 +1,5 @@
 package popovvad.findme;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.IOException;

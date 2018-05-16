@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     if(user.login()){
                         Intent intentLog = new Intent(this, MapActivity.class);
+                        intentLog.putExtra("user", user.getUsername());
                         startActivity(intentLog);
                         break;
                     }
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     if(userReg.registration()){
                         Intent intentReg = new Intent(this, MapActivity.class);
+                        intentReg.putExtra("user", userReg.getUsername());
                         startActivity(intentReg);
                         break;
                     }

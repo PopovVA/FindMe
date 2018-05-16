@@ -1,6 +1,7 @@
 package popovvad.findme;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,8 @@ import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 
@@ -24,9 +27,11 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
     private MapView mapView;
 
+
     ImageButton imageButton;
 
     private static final int PERMISSION_REQUEST = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +69,18 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         //imageButton.setOnClickListener(this);
     }
 
-    private void refreshUserCoordinates(double latitude, double longitude ) throws ExecutionException, InterruptedException {
-        ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
-                "{ \"latitude\" " + ":\"" + latitude + "\", \"longitude\" :" + "\"" + longitude + "\"" + "}","put");
-        serverInteraction.execute();
-        String response = serverInteraction.get();
+    private void refreshUserCoordinates(final double latitude, final double longitude ) {
+        Intent intent = getIntent();
+        final String user = intent.getStringExtra("user");
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
+                        "{\"user\" " + ":\"" + user + "\", \"latitude\" " + ":\"" + latitude + "\", \"longitude\" :" + "\"" + longitude + "\"" + "}", "put");
+                serverInteraction.execute();
+            }
+        }, 0L, 50L * 1000);
     }
 
     public void setCurrentGeo(){
@@ -82,7 +94,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                     new Animation(Animation.Type.SMOOTH, 0),
                     null);
             mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
-            //refreshUserCoordinates(geoPosition.getLatitude(),geoPosition.getLongitude()); // фоновая отправка текущих координат на сервер
+            refreshUserCoordinates(geoPosition.getLatitude(),geoPosition.getLongitude()); // фоновая отправка текущих координат на сервер
         } catch (Exception t){
             Message.showMessage(this,"Ошибка определения местоположения");
         }
