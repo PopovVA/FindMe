@@ -34,7 +34,7 @@ public class GeoPosition implements LocationListener {
         this.longitude = longitude;
     }
 
-    public void SetUpLocationListener(Context context) // это нужно запустить в самом начале работы программы
+    public void SetUpLocationListener(Context context)
     {
         LocationManager locationManager = (LocationManager)
                 context.getSystemService(Context.LOCATION_SERVICE);

@@ -1,6 +1,7 @@
 package popovvad.findme;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -69,15 +70,17 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         //imageButton.setOnClickListener(this);
     }
 
-    private void refreshUserCoordinates(final double latitude, final double longitude ) {
+    private void refreshUserCoordinates(final Context contextThread) {
         Intent intent = getIntent();
         final String user = intent.getStringExtra("user");
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                GeoPosition geoPosition = new GeoPosition();
+                geoPosition.SetUpLocationListener(contextThread);
                 ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
-                        "{\"user\" " + ":\"" + user + "\", \"latitude\" " + ":\"" + latitude + "\", \"longitude\" :" + "\"" + longitude + "\"" + "}", "put");
+                        "{\"user\" " + ":\"" + user + "\", \"latitude\" " + ":\"" + geoPosition.getLatitude() + "\", \"longitude\" :" + "\"" + geoPosition.getLongitude() + "\"" + "}", "put");
                 serverInteraction.execute();
             }
         }, 0L, 50L * 1000);
@@ -94,7 +97,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                     new Animation(Animation.Type.SMOOTH, 0),
                     null);
             mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
-            refreshUserCoordinates(geoPosition.getLatitude(),geoPosition.getLongitude()); // фоновая отправка текущих координат на сервер
+            refreshUserCoordinates(this); // фоновая отправка текущих координат на сервер
         } catch (Exception t){
             Message.showMessage(this,"Ошибка определения местоположения");
         }
