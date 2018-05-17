@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -77,6 +78,10 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                if (Looper.myLooper() == null)
+                {
+                    Looper.prepare();
+                }
                 GeoPosition geoPosition = new GeoPosition();
                 geoPosition.SetUpLocationListener(contextThread);
                 ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",

@@ -34,8 +34,7 @@ public class GeoPosition implements LocationListener {
         this.longitude = longitude;
     }
 
-    public void SetUpLocationListener(Context context)
-    {
+    public void SetUpLocationListener(Context context) {
         LocationManager locationManager = (LocationManager)
                 context.getSystemService(Context.LOCATION_SERVICE);
 
@@ -53,8 +52,13 @@ public class GeoPosition implements LocationListener {
                 GeoPosition); // здесь можно указать другие более подходящие вам параметры
 
         imHere = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        setLatitude(imHere.getLatitude());
-        setLongitude(imHere.getLongitude());
+        if (imHere != null) {
+            setLatitude(imHere.getLatitude());
+            setLongitude(imHere.getLongitude());
+        } else
+            imHere = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            setLatitude(imHere.getLatitude());
+            setLongitude(imHere.getLongitude());
 }
 
     @Override
