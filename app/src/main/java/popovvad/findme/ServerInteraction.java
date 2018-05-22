@@ -22,15 +22,11 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
     private String request;
 
     ServerInteraction(String url, String json, String request) {
-        //setContext(context);
-        setUrl(url);
-        setJson(json);
-        setRequest(request);
+        this.url = url;
+        this.json = json;
+        this.request = request;
     }
 
-    //public void setContext(Context context) {
-    //    this.context = context;
-    //}
 
     private void setJson(String json) {
         this.json = json;

@@ -13,13 +13,14 @@ import java.util.concurrent.ExecutionException;
 
 public class User {
 
-    private String user = new String();
-    private String password = new String();
+    private String user;
+    private String password;
     private Context context;
 
     User(String user, String password, Context context){
-        setContext(context);
-        setUser(user,password);
+        this.context = context;
+        this.user = user;
+        this.password = password;
     }
 
     public void setContext(Context context){
