@@ -38,9 +38,6 @@ public class GeoPosition implements LocationListener {
         LocationManager locationManager = (LocationManager)
                 context.getSystemService(Context.LOCATION_SERVICE);
 
-        GeoPosition GeoPosition = new GeoPosition();
-
-
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -49,7 +46,7 @@ public class GeoPosition implements LocationListener {
                 LocationManager.GPS_PROVIDER,
                 5000,
                 10,
-                GeoPosition); // здесь можно указать другие более подходящие вам параметры
+                this); // здесь можно указать другие более подходящие вам параметры
 
         imHere = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (imHere != null) {

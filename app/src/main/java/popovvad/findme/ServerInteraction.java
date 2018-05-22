@@ -18,7 +18,6 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
 
     private String url;
     private String json;
-    //private Context context;
     private String request;
 
     ServerInteraction(String url, String json, String request) {
