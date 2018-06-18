@@ -37,4 +37,5 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
     compile 'com.yandex.android:mapkit:3.0.0'
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
 }

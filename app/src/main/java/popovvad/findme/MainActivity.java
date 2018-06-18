@@ -34,14 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         login_password = (EditText) findViewById(R.id.login_password);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add("Опции");
-        menu.add("FAQ");
-        menu.add("Написать разработчику");
-        menu.add("Выход");
-
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public void onClick(View v) {
