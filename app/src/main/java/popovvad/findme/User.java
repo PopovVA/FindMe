@@ -69,7 +69,7 @@ public class User {
         return returnable;
     }
     public Boolean registration() throws IOException, ExecutionException, InterruptedException {
-        if (!(loginControl())) {
+        if (!(regControl())) {
             return false;
         }
         ServerInteraction ServerInteractionReg = new ServerInteraction("http://popovvad.ru/register.php",
@@ -103,6 +103,26 @@ public class User {
         }
         else if (getUserpassword().length()<=0){
             Message.showMessage(getContext(),"Пароль не может быть пустым");
+            return false;
+        }
+        else if(getUserpassword().length()> 15){
+            Message.showMessage(getContext(),"Пароль не может быть больше 15 символов");
+            return false;
+        }
+        return true;
+    }
+
+    private Boolean regControl(){
+        if (getUsername().length()<=0){
+            Message.showMessage(getContext(),"Для регистрации введите логин и пароль");
+            return false;
+        }
+        else if (getUsername().length()>15){
+            Message.showMessage(getContext(),"Логин не может быть больше 15 символов");
+            return false;
+        }
+        else if (getUserpassword().length()<=0){
+            Message.showMessage(getContext(),"Для регистрации введите логин и пароль");
             return false;
         }
         else if(getUserpassword().length()> 15){
