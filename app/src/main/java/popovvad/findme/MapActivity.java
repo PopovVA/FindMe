@@ -22,17 +22,11 @@ import com.yandex.runtime.image.ImageProvider;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 
 
 public class MapActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MapView mapView;
-
-
-    ImageButton imageButton;
-
-    private static final int PERMISSION_REQUEST = 1;
 
 
     @Override
@@ -44,12 +38,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");
         MapKitFactory.initialize(this);
         //Проверка разрешения на определение местоположения
-
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST);
-        }else{
-            setCurrentGeo();
-        }
+        setCurrentGeo();
     }
 
     @Override
