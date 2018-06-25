@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         login_password = (EditText) findViewById(R.id.login_password);
 
 
-
     }
 
 
