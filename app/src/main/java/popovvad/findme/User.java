@@ -114,7 +114,7 @@ public class User {
 
     private Boolean regControl(){
         if (getUsername().length()<=0){
-            Message.showMessage(getContext(),"Для регистрации введите логин и пароль");
+            Message.showMessage(getContext(),"Введите логин и пароль и нажмите регистрация");
             return false;
         }
         else if (getUsername().length()>15){
@@ -122,7 +122,7 @@ public class User {
             return false;
         }
         else if (getUserpassword().length()<=0){
-            Message.showMessage(getContext(),"Для регистрации введите логин и пароль");
+            Message.showMessage(getContext(),"Введите логин и пароль и нажмите регистрация");
             return false;
         }
         else if(getUserpassword().length()> 15){

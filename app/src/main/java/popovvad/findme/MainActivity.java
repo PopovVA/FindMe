@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText login_user;
     EditText login_password;
     private static final int PERMISSION_REQUEST = 1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         login_user = (EditText) findViewById(R.id.login_user);
         login_password = (EditText) findViewById(R.id.login_password);
+
+
+
     }
 
 

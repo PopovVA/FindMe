@@ -1,17 +1,13 @@
 package popovvad.findme;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageButton;
+
 
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
@@ -29,14 +25,12 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     private MapView mapView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Инициализация компонентов UI
         initUI();
-        //Инициализация АПИ яндекса
-        MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");
-        MapKitFactory.initialize(this);
         //Проверка разрешения на определение местоположения
         setCurrentGeo();
     }
@@ -56,8 +50,13 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initUI(){
-        //imageButton = (ImageButton)findViewById(R.id.button_refresh);
-        //imageButton.setOnClickListener(this);
+        //Инициализация АПИ яндекса
+        MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");
+        MapKitFactory.initialize(this);
+
+        setContentView(R.layout.map_activity);
+
+
     }
 
     private void refreshUserCoordinates(final Context contextThread) {
