@@ -1,11 +1,28 @@
 <resources>
+    <!--Main strings-->
     <string name="app_name">FindMe</string>
+    <!--Autorization layout-->
+    <string name="tittle_login">Авторизация</string>
+    <string name="placeholder_login">Логин</string>
+    <string name="placeholder_password">Пароль</string>
+    <string name="boolean_recall">Запомнить</string>
+    <string name="action_reg">Регистрация</string>
+    <string name="action_login">Войти</string>
+    <!--Navigation drawler-->
     <string name="drawer_open">Открыть</string>
     <string name="drawer_close">Закрыть</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Меню действий</string>
+    <string name="nav_header_subtitle">Воспользуйтесь поиском или списком контактов</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <!-- ==================== Navigation drawler menu-->
+    <string name="action_settings">Настройки</string>
+    <string name="action_search">Найти друга</string>
+    <string name="action_contacts">Список друзей</string>
+    <string name="action_exit">Выйти</string>
+    <string name="group_search">Обратная связь</string>
+    <string name="action_send">Сообщить об ошибке</string>
+    <string name="action_faq">Инструкция пользователя</string>
+
 </resources>

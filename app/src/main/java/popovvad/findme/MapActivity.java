@@ -82,12 +82,12 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
-        @Override
-        public boolean onCreateOptionsMenu (Menu menu){
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//        @Override
+//        public boolean onCreateOptionsMenu (Menu menu){
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.options_menu, menu);
+//        return true;
+//    }
 
         @Override
         public boolean onOptionsItemSelected (MenuItem item){
@@ -110,15 +110,7 @@ public class MapActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        if (id == R.id.action_settings) {
 
         } else if (id == R.id.nav_send) {
 
