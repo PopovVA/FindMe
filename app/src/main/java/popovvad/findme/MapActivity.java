@@ -37,9 +37,11 @@ public class MapActivity extends AppCompatActivity
         protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         initUI();
-        //Проверка разрешения на определение местоположения
+        //Определение местоположения
         setCurrentGeo();
     }
+
+
 
     private void initUI(){
         //Инициализация АПИ яндекса
@@ -55,8 +57,9 @@ public class MapActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Определяю ваше местоположение...", Snackbar.LENGTH_LONG)
+                        .setAction("Action",null).show();
+                setCurrentGeo();
             }
         });
 
@@ -110,9 +113,18 @@ public class MapActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.nav_search) {
 
+        } else if (id == R.id.nav_contacts) {
+
+        } else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_exit) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.nav_faq) {
 
         }
 
