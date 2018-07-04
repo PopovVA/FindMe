@@ -23,13 +23,17 @@ public class User {
         this.password = password;
     }
 
-    public void setContext(Context context){
-        this.context = context;
-    }
+// --Commented out by Inspection START (04.07.2018 14:24):
+//    public void setContext(Context context){
+//        this.context = context;
+//    }
+// --Commented out by Inspection STOP (04.07.2018 14:24)
 
-    public void setUser(String user, String password){
-        this.user = user; this.password = password;
-    }
+// --Commented out by Inspection START (04.07.2018 14:24):
+//    public void setUser(String user, String password){
+//        this.user = user; this.password = password;
+//    }
+// --Commented out by Inspection STOP (04.07.2018 14:24)
     public String getUsername(){
         return user;
     }

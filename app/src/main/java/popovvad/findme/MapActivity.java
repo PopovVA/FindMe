@@ -21,6 +21,8 @@ import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
+import com.yandex.mapkit.map.MapObject;
+import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
@@ -32,6 +34,9 @@ public class MapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
         private MapView mapView;
+
+        private Point mainPoint;
+        private PlacemarkMapObject mainPlacemarkMapObject;
 
         @Override
         protected void onCreate (Bundle savedInstanceState){
@@ -57,8 +62,10 @@ public class MapActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Определяю ваше местоположение...", Snackbar.LENGTH_LONG)
-                        .setAction("Action",null).show();
+//                баг
+//                Snackbar.make(view, "Определяю ваше местоположение...", Snackbar.LENGTH_LONG)
+//                        .setAction("Action",null).show();
+                Message.showMessage(view.getContext(),"Определяю ваше местоположение...");
                 setCurrentGeo();
             }
         });
@@ -85,12 +92,6 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
-//        @Override
-//        public boolean onCreateOptionsMenu (Menu menu){
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.options_menu, menu);
-//        return true;
-//    }
 
         @Override
         public boolean onOptionsItemSelected (MenuItem item){
@@ -114,7 +115,8 @@ public class MapActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_search) {
-
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_contacts) {
 
         } else if (id == R.id.nav_settings) {
@@ -158,12 +160,20 @@ public class MapActivity extends AppCompatActivity
         GeoPosition geoPosition = new GeoPosition();
         geoPosition.SetUpLocationListener(this);
         mapView = findViewById(R.id.mapview);
+        if (mainPoint == null){
+            mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
+            mainPlacemarkMapObject = mapView.getMap().getMapObjects().addPlacemark(mainPoint,ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));;
+        } else
+        {
+            mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
+            mainPlacemarkMapObject.setGeometry(mainPoint);
+        }
         try {
             mapView.getMap().move(
-                    new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
+                    new CameraPosition(mainPoint, 15.0f, 0.0f, 0.0f),
                     new Animation(Animation.Type.SMOOTH, 0),
                     null);
-            mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
+            //mapView.getMap().getMapObjects().addPlacemark(mainPoint,ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
             refreshUserCoordinates(this); // фоновая отправка текущих координат на сервер
         } catch (Exception t){
             Message.showMessage(this,"Ошибка определения местоположения");

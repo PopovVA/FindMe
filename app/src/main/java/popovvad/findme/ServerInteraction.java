@@ -27,21 +27,29 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
     }
 
 
-    private void setJson(String json) {
-        this.json = json;
-    }
+// --Commented out by Inspection START (04.07.2018 14:23):
+//    private void setJson(String json) {
+//        this.json = json;
+//    }
+// --Commented out by Inspection STOP (04.07.2018 14:23)
 
-    private void setUrl(String url) {
-        this.url = url;
-    }
+// --Commented out by Inspection START (04.07.2018 14:23):
+//    private void setUrl(String url) {
+//        this.url = url;
+//    }
+// --Commented out by Inspection STOP (04.07.2018 14:23)
 
-    public String getRequest() {
-        return request;
-    }
+// --Commented out by Inspection START (04.07.2018 14:23):
+//    public String getRequest() {
+//        return request;
+//    }
+// --Commented out by Inspection STOP (04.07.2018 14:23)
 
-    public void setRequest(String request) {
-        this.request = request;
-    }
+// --Commented out by Inspection START (04.07.2018 14:23):
+//    public void setRequest(String request) {
+//        this.request = request;
+//    }
+// --Commented out by Inspection STOP (04.07.2018 14:23)
 
 
     public String getUrl() {
@@ -82,6 +90,14 @@ public class ServerInteraction extends AsyncTask<String, Integer, String> {
             Request request = new Request.Builder()
                     .url(getUrl())
                     .put(body)
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+
+        } else if (request == "get"){
+            Request request = new Request.Builder()
+                    .url(getUrl())
+                    .get()
                     .build();
             Response response = client.newCall(request).execute();
             return response.body().string();

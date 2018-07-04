@@ -16,7 +16,7 @@ public class GeoPosition implements LocationListener {
 
     static Location imHere;
 
-    private static final int PERMISSION_REQUEST = 1;
+    // --Commented out by Inspection (04.07.2018 14:24):private static final int PERMISSION_REQUEST = 1;
 
     public double getLatitude() {
         return latitude;

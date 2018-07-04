@@ -24,5 +24,6 @@
     <string name="group_search">Обратная связь</string>
     <string name="action_send">Сообщить об ошибке</string>
     <string name="action_faq">Инструкция пользователя</string>
-
+    <!--Activity search-->
+    <string name="search_text">тест</string>
 </resources>

@@ -1,1 +1,1 @@
-include ':app', ':navigatondrawler'
+include ':app', ':navigatondrawler', ':search'
