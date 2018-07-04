@@ -1,6 +1,7 @@
 package popovvad.findme;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText login_user;
     EditText login_password;
     private static final int PERMISSION_REQUEST = 1;
+
+    private ProgressDialog progressDialog = null;
 
 
 
@@ -54,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Message.showMessage(this,"Для работы приложения необходимо разрешение на работу с геолокацией");
             return;
         }
+        progressDialog = new ProgressDialog(v.getContext(),R.style.MyTheme);
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        progressDialog.show();
         switch (v.getId()) {
             case R.id.login_button:
 
