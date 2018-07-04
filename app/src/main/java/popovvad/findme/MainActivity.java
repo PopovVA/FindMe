@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(user.login()){
                         Intent intentLog = new Intent(this, MapActivity.class);
                         intentLog.putExtra("user", user.getUsername());
+                        progressDialog.hide();
                         startActivity(intentLog);
                         break;
                     }
