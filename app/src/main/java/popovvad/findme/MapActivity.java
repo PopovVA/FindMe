@@ -65,7 +65,7 @@ public class MapActivity extends AppCompatActivity
 //                баг
 //                Snackbar.make(view, "Определяю ваше местоположение...", Snackbar.LENGTH_LONG)
 //                        .setAction("Action",null).show();
-                Message.showMessage(view.getContext(),"Определяю ваше местоположение...");
+                UniversalMechanisms.showMessage(view.getContext(),"Определяю ваше местоположение...");
                 setCurrentGeo();
             }
         });
@@ -143,6 +143,9 @@ public class MapActivity extends AppCompatActivity
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                if (!UniversalMechanisms.isOnline(contextThread)){
+                    return;
+                }
                 if (Looper.myLooper() == null)
                 {
                     Looper.prepare();
@@ -176,7 +179,7 @@ public class MapActivity extends AppCompatActivity
             //mapView.getMap().getMapObjects().addPlacemark(mainPoint,ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
             refreshUserCoordinates(this); // фоновая отправка текущих координат на сервер
         } catch (Exception t){
-            Message.showMessage(this,"Ошибка определения местоположения");
+            UniversalMechanisms.showMessage(this,"Ошибка определения местоположения");
         }
     }
 

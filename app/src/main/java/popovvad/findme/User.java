@@ -56,18 +56,18 @@ public class User {
         Boolean returnable;
         switch (response){
             case "failed_password" : returnable = false;
-                Message.showMessage(getContext(),"Неверный пароль");
+                UniversalMechanisms.showMessage(getContext(),"Неверный пароль");
                 break;
             case "failed_username" : returnable = false;
-                Message.showMessage(getContext(),"Пользователь с таким именем не найден");
+                UniversalMechanisms.showMessage(getContext(),"Пользователь с таким именем не найден");
                 break;
             case "successful" : returnable = true;
                 break;
             case "dbaseError" : returnable = false;
-                Message.showMessage(getContext(),"Ошибка подключения к базе данных");
+                UniversalMechanisms.showMessage(getContext(),"Ошибка подключения к базе данных");
                 break;
             default: returnable = false;
-                Message.showMessage(getContext(),"Что то пошло не так");
+                UniversalMechanisms.showMessage(getContext(),"Что то пошло не так");
         }
 
         return returnable;
@@ -83,34 +83,34 @@ public class User {
         Boolean returnable;
         switch (response){
             case "failed" : returnable = false;
-                Message.showMessage(getContext(),"Пользователь с таким именем уже существует");
+                UniversalMechanisms.showMessage(getContext(),"Пользователь с таким именем уже существует");
                 break;
             case "successful" : returnable = true;
                 break;
             case "dbaseError" : returnable = false;
-                Message.showMessage(getContext(),"Ошибка подключения к базе данных");
+                UniversalMechanisms.showMessage(getContext(),"Ошибка подключения к базе данных");
                 break;
             default: returnable = false;
-                Message.showMessage(getContext(),"Что то пошло не так");
+                UniversalMechanisms.showMessage(getContext(),"Что то пошло не так");
         }
 
         return returnable;
     }
     private Boolean loginControl(){
         if (getUsername().length()<=0){
-            Message.showMessage(getContext(),"Логин не может быть пустым");
+            UniversalMechanisms.showMessage(getContext(),"Логин не может быть пустым");
             return false;
         }
         else if (getUsername().length()>15){
-            Message.showMessage(getContext(),"Логин не может быть больше 15 символов");
+            UniversalMechanisms.showMessage(getContext(),"Логин не может быть больше 15 символов");
             return false;
         }
         else if (getUserpassword().length()<=0){
-            Message.showMessage(getContext(),"Пароль не может быть пустым");
+            UniversalMechanisms.showMessage(getContext(),"Пароль не может быть пустым");
             return false;
         }
         else if(getUserpassword().length()> 15){
-            Message.showMessage(getContext(),"Пароль не может быть больше 15 символов");
+            UniversalMechanisms.showMessage(getContext(),"Пароль не может быть больше 15 символов");
             return false;
         }
         return true;
@@ -118,19 +118,19 @@ public class User {
 
     private Boolean regControl(){
         if (getUsername().length()<=0){
-            Message.showMessage(getContext(),"Введите логин и пароль и нажмите регистрация");
+            UniversalMechanisms.showMessage(getContext(),"Введите логин и пароль и нажмите регистрация");
             return false;
         }
         else if (getUsername().length()>15){
-            Message.showMessage(getContext(),"Логин не может быть больше 15 символов");
+            UniversalMechanisms.showMessage(getContext(),"Логин не может быть больше 15 символов");
             return false;
         }
         else if (getUserpassword().length()<=0){
-            Message.showMessage(getContext(),"Введите логин и пароль и нажмите регистрация");
+            UniversalMechanisms.showMessage(getContext(),"Введите логин и пароль и нажмите регистрация");
             return false;
         }
         else if(getUserpassword().length()> 15){
-            Message.showMessage(getContext(),"Пароль не может быть больше 15 символов");
+            UniversalMechanisms.showMessage(getContext(),"Пароль не может быть больше 15 символов");
             return false;
         }
         return true;

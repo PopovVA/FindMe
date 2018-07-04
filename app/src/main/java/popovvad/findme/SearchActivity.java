@@ -22,7 +22,7 @@ public class SearchActivity extends AppCompatActivity{
             @Override
             public boolean onQueryTextSubmit(final String query) {
                 //вызовется при нажатии на лупу на клавиатуре
-                Message.showMessage(searchView.getContext(),"Test");
+                UniversalMechanisms.showMessage(searchView.getContext(),"Test");
                 new Thread(new Runnable() {
                     public void run() {
                         if (Looper.myLooper() == null)

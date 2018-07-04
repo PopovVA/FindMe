@@ -54,13 +54,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            Message.showMessage(this,"Для работы приложения необходимо разрешение на работу с геолокацией");
+            UniversalMechanisms.showMessage(this,"Для работы приложения необходимо разрешение на работу с геолокацией");
             return;
         }
         progressDialog = new ProgressDialog(v.getContext(),R.style.MyTheme);
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         progressDialog.show();
+
+        if (!UniversalMechanisms.isOnline(this)){
+            UniversalMechanisms.showMessage(this,"Для работы приложения необходимо интернет соединение");
+            progressDialog.hide();
+            return;
+        }
         switch (v.getId()) {
             case R.id.login_button:
 
