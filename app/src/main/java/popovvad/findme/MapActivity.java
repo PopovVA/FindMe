@@ -62,9 +62,6 @@ public class MapActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                баг
-//                Snackbar.make(view, "Определяю ваше местоположение...", Snackbar.LENGTH_LONG)
-//                        .setAction("Action",null).show();
                 UniversalMechanisms.showMessage(view.getContext(),"Определяю ваше местоположение...");
                 setCurrentGeo();
             }
@@ -153,7 +150,7 @@ public class MapActivity extends AppCompatActivity
                 GeoPosition geoPosition = new GeoPosition();
                 geoPosition.SetUpLocationListener(contextThread);
                 ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
-                        "{\"user\" " + ":\"" + user + "\", \"latitude\" " + ":\"" + geoPosition.getLatitude() + "\", \"longitude\" :" + "\"" + geoPosition.getLongitude() + "\"" + "}", "put");
+                        "{\"username\" " + ":\"" + user + "\", \"latitude\" " + ":\"" + geoPosition.getLatitude() + "\", \"longitude\" :" + "\"" + geoPosition.getLongitude() + "\"" + "}", "put");
                 serverInteraction.execute();
             }
         }, 0L, 50L * 1000);

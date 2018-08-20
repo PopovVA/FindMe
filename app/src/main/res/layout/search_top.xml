@@ -21,11 +21,21 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:gravity="top" />
+             />
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/search_content_scrolling" />
+
+    <TextView
+        android:id="@+id/noticeSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:text="@string/noticeSearch"
+        android:layout_marginTop="11dp"
+        android:textSize="25sp"
+        android:layout_gravity="top|center">
+    </TextView>
 
 
 

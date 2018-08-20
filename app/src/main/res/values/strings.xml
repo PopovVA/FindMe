@@ -25,5 +25,7 @@
     <string name="action_send">Сообщить об ошибке</string>
     <string name="action_faq">Инструкция пользователя</string>
     <!--Activity search-->
-    <string name="search_text">тест</string>
+    <string name="onMap">Показать на карте</string>
+    <string name="newContact">Добавить в контакты</string>
+    <string name="noticeSearch">Введите имя контакта</string>
 </resources>

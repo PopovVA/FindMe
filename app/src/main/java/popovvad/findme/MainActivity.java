@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(userReg.registration()){
                         Intent intentReg = new Intent(this, MapActivity.class);
                         intentReg.putExtra("user", userReg.getUsername());
+                        progressDialog.hide();
                         startActivity(intentReg);
                         break;
                     }
