@@ -26,6 +26,13 @@
     <string name="action_faq">Инструкция пользователя</string>
     <!--Activity search-->
     <string name="onMap">Показать на карте</string>
-    <string name="newContact">Добавить в контакты</string>
     <string name="noticeSearch">Введите имя контакта</string>
+    <!--Contact-->
+    <string name="contactName">Имя контакта</string>
+    <string name="city">Населенный пункт</string>
+    <string name="country">Страна</string>
+    <string name="coordinates">Координаты</string>
+    <string name="newContact">Добавить в контакты</string>
+    <string name="findOnMap">Показать на карте</string>
+    <string name="contact_point_text">empty</string>
 </resources>

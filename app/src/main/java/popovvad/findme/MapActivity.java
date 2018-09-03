@@ -2,26 +2,22 @@ package popovvad.findme;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
-import com.yandex.mapkit.map.MapObject;
 import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
@@ -38,6 +34,10 @@ public class MapActivity extends AppCompatActivity
         private Point mainPoint;
         private PlacemarkMapObject mainPlacemarkMapObject;
 
+    private double longitude;
+    private double latitude;
+
+
         @Override
         protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -49,6 +49,7 @@ public class MapActivity extends AppCompatActivity
 
 
     private void initUI(){
+        Intent intent = getIntent();
         //Инициализация АПИ яндекса
         MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");
         MapKitFactory.initialize(this);
@@ -56,7 +57,9 @@ public class MapActivity extends AppCompatActivity
         setContentView(R.layout.map_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Местоположение " + intent.getStringExtra("user"));
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +79,8 @@ public class MapActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        this.longitude = intent.getDoubleExtra("longitude", 0.00);
+        this.latitude = intent.getDoubleExtra("latitude", 0.00);
 
     }
 
@@ -158,7 +163,13 @@ public class MapActivity extends AppCompatActivity
 
     public void setCurrentGeo(){
         GeoPosition geoPosition = new GeoPosition();
-        geoPosition.SetUpLocationListener(this);
+        if (longitude == 0.00 & latitude == 0.00) {
+            geoPosition.SetUpLocationListener(this);
+        } else {
+            geoPosition.setLatitude(this.latitude);
+            geoPosition.setLongitude(this.longitude);
+        }
+
         mapView = findViewById(R.id.mapview);
         if (mainPoint == null){
             mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());

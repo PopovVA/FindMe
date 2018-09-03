@@ -1,11 +1,10 @@
 package popovvad.findme;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -31,10 +30,13 @@ public class SearchActivity extends AppCompatActivity{
 
     private String query;
 
+    private Context mCtx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_top);
+        mCtx = this;
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -106,8 +108,11 @@ public class SearchActivity extends AppCompatActivity{
                 lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        UniversalMechanisms.showMessage(getApplicationContext(),"itemClick: position = " + position + ", id = "
-                                + id);
+                        Intent intent = new Intent(mCtx, Contact.class);
+                        intent.putExtra("user", query);
+                        intent.putExtra("latitude", latitude.toString());
+                        intent.putExtra("longitude", longitude.toString());
+                        startActivity(intent);
                     }
                 });
 
