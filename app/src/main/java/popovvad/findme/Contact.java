@@ -113,7 +113,6 @@ public class Contact extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.buttonFind:
                 Intent intentLog = new Intent(this, MapActivity.class);
-                intentLog.putExtra("user", user);
                 intentLog.putExtra("tittle_user", user);
                 intentLog.putExtra("main_user", main_user);
                 intentLog.putExtra("longitude", longitude);

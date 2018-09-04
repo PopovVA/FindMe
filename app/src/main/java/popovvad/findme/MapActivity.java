@@ -24,6 +24,7 @@ import com.yandex.runtime.image.ImageProvider;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 
 public class MapActivity extends AppCompatActivity
@@ -161,6 +162,13 @@ public class MapActivity extends AppCompatActivity
                 ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
                         "{\"username\" " + ":\"" + main_user + "\", \"latitude\" " + ":\"" + geoPosition.getLatitude() + "\", \"longitude\" :" + "\"" + geoPosition.getLongitude() + "\"" + "}", "put");
                 serverInteraction.execute();
+                try {
+                    String response = serverInteraction.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
         }, 0L, 50L * 1000);
     }
