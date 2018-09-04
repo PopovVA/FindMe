@@ -30,6 +30,8 @@ public class SearchActivity extends AppCompatActivity{
 
     private String query;
 
+    private String main_user;
+
     private Context mCtx;
 
     @Override
@@ -37,6 +39,9 @@ public class SearchActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_top);
         mCtx = this;
+
+        Intent intent = getIntent();
+        main_user = intent.getStringExtra("main_user");
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -110,8 +115,9 @@ public class SearchActivity extends AppCompatActivity{
                                             int position, long id) {
                         Intent intent = new Intent(mCtx, Contact.class);
                         intent.putExtra("user", query);
-                        intent.putExtra("latitude", latitude.toString());
-                        intent.putExtra("longitude", longitude.toString());
+                        intent.putExtra("main_user", main_user);
+                        intent.putExtra("latitude", latitude);
+                        intent.putExtra("longitude", longitude);
                         startActivity(intent);
                     }
                 });

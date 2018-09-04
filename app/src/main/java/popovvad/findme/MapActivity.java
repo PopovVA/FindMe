@@ -27,19 +27,21 @@ import java.util.TimerTask;
 
 
 public class MapActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-        private MapView mapView;
+    private MapView mapView;
 
-        private Point mainPoint;
-        private PlacemarkMapObject mainPlacemarkMapObject;
+    private Point mainPoint;
+    private PlacemarkMapObject mainPlacemarkMapObject;
 
     private double longitude;
     private double latitude;
 
+    private String main_user;
 
-        @Override
-        protected void onCreate (Bundle savedInstanceState){
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUI();
         //Определение местоположения
@@ -47,17 +49,16 @@ public class MapActivity extends AppCompatActivity
     }
 
 
-
-    private void initUI(){
+    private void initUI() {
         Intent intent = getIntent();
-        //Инициализация АПИ яндекса
-        MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");
+        main_user = intent.getStringExtra("main_user");
+        MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");//Инициализация АПИ яндекса
         MapKitFactory.initialize(this);
 
         setContentView(R.layout.map_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Местоположение " + intent.getStringExtra("user"));
+        toolbar.setTitle("Местоположение " + intent.getStringExtra("tittle_user"));
         setSupportActionBar(toolbar);
 
 
@@ -65,7 +66,11 @@ public class MapActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UniversalMechanisms.showMessage(view.getContext(),"Определяю ваше местоположение...");
+                UniversalMechanisms.showMessage(view.getContext(), "Определяю ваше местоположение...");
+                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                toolbar.setTitle("Местоположение " + main_user);
+                longitude = 0.00;
+                latitude = 0.00;
                 setCurrentGeo();
             }
         });
@@ -79,13 +84,13 @@ public class MapActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        this.longitude = intent.getDoubleExtra("longitude", 0.00);
-        this.latitude = intent.getDoubleExtra("latitude", 0.00);
+        longitude = intent.getDoubleExtra("longitude", 0.00);
+        latitude = intent.getDoubleExtra("latitude", 0.00);
 
     }
 
-        @Override
-        public void onBackPressed () {
+    @Override
+    public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -95,8 +100,8 @@ public class MapActivity extends AppCompatActivity
     }
 
 
-        @Override
-        public boolean onOptionsItemSelected (MenuItem item){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -110,14 +115,15 @@ public class MapActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-        @SuppressWarnings("StatementWithEmptyBody")
-        @Override
-        public boolean onNavigationItemSelected (MenuItem item){
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_search) {
             Intent intent = new Intent(this, SearchActivity.class);
+            intent.putExtra("main_user", main_user);
             startActivity(intent);
         } else if (id == R.id.nav_contacts) {
 
@@ -140,30 +146,28 @@ public class MapActivity extends AppCompatActivity
 
     private void refreshUserCoordinates(final Context contextThread) {
         Intent intent = getIntent();
-        final String user = intent.getStringExtra("user");
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (!UniversalMechanisms.isOnline(contextThread)){
+                if (!UniversalMechanisms.isOnline(contextThread)) {
                     return;
                 }
-                if (Looper.myLooper() == null)
-                {
+                if (Looper.myLooper() == null) {
                     Looper.prepare();
                 }
                 GeoPosition geoPosition = new GeoPosition();
                 geoPosition.SetUpLocationListener(contextThread);
                 ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
-                        "{\"username\" " + ":\"" + user + "\", \"latitude\" " + ":\"" + geoPosition.getLatitude() + "\", \"longitude\" :" + "\"" + geoPosition.getLongitude() + "\"" + "}", "put");
+                        "{\"username\" " + ":\"" + main_user + "\", \"latitude\" " + ":\"" + geoPosition.getLatitude() + "\", \"longitude\" :" + "\"" + geoPosition.getLongitude() + "\"" + "}", "put");
                 serverInteraction.execute();
             }
         }, 0L, 50L * 1000);
     }
 
-    public void setCurrentGeo(){
+    public void setCurrentGeo() {
         GeoPosition geoPosition = new GeoPosition();
-        if (longitude == 0.00 & latitude == 0.00) {
+        if (latitude == 0.00 & longitude == 0.00) {
             geoPosition.SetUpLocationListener(this);
         } else {
             geoPosition.setLatitude(this.latitude);
@@ -171,11 +175,11 @@ public class MapActivity extends AppCompatActivity
         }
 
         mapView = findViewById(R.id.mapview);
-        if (mainPoint == null){
+        if (mainPoint == null) {
             mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
-            mainPlacemarkMapObject = mapView.getMap().getMapObjects().addPlacemark(mainPoint,ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));;
-        } else
-        {
+            mainPlacemarkMapObject = mapView.getMap().getMapObjects().addPlacemark(mainPoint, ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
+            ;
+        } else {
             mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
             mainPlacemarkMapObject.setGeometry(mainPoint);
         }
@@ -186,8 +190,8 @@ public class MapActivity extends AppCompatActivity
                     null);
             //mapView.getMap().getMapObjects().addPlacemark(mainPoint,ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
             refreshUserCoordinates(this); // фоновая отправка текущих координат на сервер
-        } catch (Exception t){
-            UniversalMechanisms.showMessage(this,"Ошибка определения местоположения");
+        } catch (Exception t) {
+            UniversalMechanisms.showMessage(this, "Ошибка определения местоположения");
         }
     }
 

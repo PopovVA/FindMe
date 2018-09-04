@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     if(user.login()){
                         Intent intentLog = new Intent(this, MapActivity.class);
-                        intentLog.putExtra("user", user.getUsername());
+                        intentLog.putExtra("main_user", user.getUsername());
+                        intentLog.putExtra("tittle_user", user.getUsername());
                         progressDialog.hide();
                         startActivity(intentLog);
                         break;
@@ -91,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     if(userReg.registration()){
                         Intent intentReg = new Intent(this, MapActivity.class);
-                        intentReg.putExtra("user", userReg.getUsername());
+                        intentReg.putExtra("main_user", userReg.getUsername());
+                        intentReg.putExtra("tittle_user", userReg.getUsername());
                         progressDialog.hide();
                         startActivity(intentReg);
                         break;

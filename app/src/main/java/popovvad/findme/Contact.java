@@ -19,6 +19,7 @@ public class Contact extends AppCompatActivity implements View.OnClickListener {
 
     private Double latitude;
     private Double longitude;
+    private String main_user;
     private String user;
     private String city;
     private String country;
@@ -37,12 +38,11 @@ public class Contact extends AppCompatActivity implements View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private void initUI() {
         Intent intent = getIntent();
+        main_user = intent.getStringExtra("main_user");
         user = intent.getStringExtra("user");
-        String vLatidude = intent.getStringExtra("latitude");
-        String vLongitude = intent.getStringExtra("longitude");
+        latitude = intent.getDoubleExtra("latitude", 0.00);
+        longitude = intent.getDoubleExtra("longitude", 0.00);
 
-        latitude = Double.parseDouble(vLatidude);
-        longitude = Double.parseDouble(vLongitude);
 
         TextView contactName = findViewById(R.id.contactName);
         contactName.setText(user);
@@ -114,6 +114,8 @@ public class Contact extends AppCompatActivity implements View.OnClickListener {
             case R.id.buttonFind:
                 Intent intentLog = new Intent(this, MapActivity.class);
                 intentLog.putExtra("user", user);
+                intentLog.putExtra("tittle_user", user);
+                intentLog.putExtra("main_user", main_user);
                 intentLog.putExtra("longitude", longitude);
                 intentLog.putExtra("latitude", latitude);
                 progressDialog.hide();
