@@ -1,7 +1,13 @@
 <resources>
     <!--Main strings-->
     <string name="app_name">FindMe</string>
+    <string name="url_server">http://popovvad.ru/</string>
+    <string name="url_registration">registration.php</string>
+    <string name="url_authorization">authorization.php</string>
+    <string name="url_refreshCoordinates">refreshCoordinates.php</string>
+    <string name="url_UserCoordinates">UserCoordinates.php</string>
     <!--Autorization layout-->
+    <string name="please_wait">Пожалуйста подождите</string>
     <string name="tittle_login">Авторизация</string>
     <string name="placeholder_login">Логин</string>
     <string name="placeholder_password">Пароль</string>

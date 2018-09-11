@@ -1,4 +1,4 @@
-package popovvad.findme;
+package popovvad.findme.mySupportLibrary;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,21 +10,19 @@ import android.widget.Toast;
 
 public abstract class UniversalMechanisms {
 
-    public static void showMessage(Context context, String message){
-        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+    public static void showMessage(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
-    public static void showShortMessage(Context context, String message){
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    public static void showShortMessage(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static boolean isOnline(Context context)
-    {
+    public static boolean isOnline(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting())
-        {
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             return true;
         }
         return false;
