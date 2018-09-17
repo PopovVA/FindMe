@@ -6,20 +6,20 @@ import android.content.Context;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-import popovvad.findme.mySupportLibrary.UniversalMechanisms;
+import popovvad.findme.supportLibrary.UniversalMechanisms;
 
 
 /**
  * Created by Вадим on 19.03.2018.
  */
 
-public class User {
+public class del_User {
 
     private String user;
     private String password;
     private Context context;
 
-    User(String user, String password, Context context){
+    del_User(String user, String password, Context context) {
         this.context = context;
         this.user = user;
         this.password = password;
@@ -51,7 +51,7 @@ public class User {
         if (!(loginControl())) {
             return false;
         }
-        ServerInteraction ServerInteractionLog = new ServerInteraction("http://popovvad.ru/authorization.php",
+        del_ServerInteraction ServerInteractionLog = new del_ServerInteraction("http://popovvad.ru/authorization.php",
                 "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}","post");
         ServerInteractionLog.execute();
         String response = ServerInteractionLog.get();
@@ -78,7 +78,7 @@ public class User {
         if (!(regControl())) {
             return false;
         }
-        ServerInteraction ServerInteractionReg = new ServerInteraction("http://popovvad.ru/register.php",
+        del_ServerInteraction ServerInteractionReg = new del_ServerInteraction("http://popovvad.ru/register.php",
                 "{\"username\" " + ":\"" + getUsername() + "\", \"password\" :" + "\"" + getUserpassword() + "\"" + "}","post");
         ServerInteractionReg.execute();
         String response = ServerInteractionReg.get();

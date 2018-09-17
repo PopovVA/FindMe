@@ -23,17 +23,6 @@ public interface AuthorizationContract {
 
         void onButtonRegWasClicked();
 
-        void onDestroy();
     }
 
-    interface Repository {
-        void loadResponse(AuthorizationRepository.CompleteCallback callback);
-
-        void setUrl(String url);
-
-        void setRequest(String request);
-
-        void setJson(String json);
-
-    }
 }

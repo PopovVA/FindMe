@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import popovvad.findme.R;
-import popovvad.findme.mySupportLibrary.UniversalMechanisms;
+import popovvad.findme.supportLibrary.UniversalMechanisms;
 
 public class AuthorizationView extends AppCompatActivity implements AuthorizationContract.View, View.OnClickListener {
 
@@ -65,7 +65,7 @@ public class AuthorizationView extends AppCompatActivity implements Authorizatio
 
     @Override
     public void showProgressDialog() {
-        progressDialog = ProgressDialog.show(this, "", getString(R.string.please_wait));
+        progressDialog = ProgressDialog.show(this, "Загрузка", getString(R.string.please_wait));
     }
 
     @Override

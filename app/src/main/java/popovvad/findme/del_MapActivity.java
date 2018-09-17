@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,10 +27,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
-import popovvad.findme.mySupportLibrary.UniversalMechanisms;
+import popovvad.findme.supportLibrary.GeoPosition;
+import popovvad.findme.supportLibrary.UniversalMechanisms;
 
 
-public class MapActivity extends AppCompatActivity
+public class del_MapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private MapView mapView;
@@ -125,7 +127,7 @@ public class MapActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_search) {
-            Intent intent = new Intent(this, SearchActivity.class);
+            Intent intent = new Intent(this, SearchView.class);
             intent.putExtra("main_user", main_user);
             startActivity(intent);
         } else if (id == R.id.nav_contacts) {
@@ -133,7 +135,7 @@ public class MapActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_exit) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, del_MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_send) {
 
@@ -161,7 +163,7 @@ public class MapActivity extends AppCompatActivity
                 }
                 GeoPosition geoPosition = new GeoPosition();
                 geoPosition.SetUpLocationListener(contextThread);
-                ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
+                del_ServerInteraction serverInteraction = new del_ServerInteraction("http://popovvad.ru/refreshCoordinates.php",
                         "{\"username\" " + ":\"" + main_user + "\", \"latitude\" " + ":\"" + geoPosition.getLatitude() + "\", \"longitude\" :" + "\"" + geoPosition.getLongitude() + "\"" + "}", "put");
                 serverInteraction.execute();
                 try {
@@ -188,7 +190,6 @@ public class MapActivity extends AppCompatActivity
         if (mainPoint == null) {
             mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
             mainPlacemarkMapObject = mapView.getMap().getMapObjects().addPlacemark(mainPoint, ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
-            ;
         } else {
             mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
             mainPlacemarkMapObject.setGeometry(mainPoint);

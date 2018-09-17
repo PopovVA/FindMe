@@ -15,9 +15,9 @@ import android.widget.EditText;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-import popovvad.findme.mySupportLibrary.UniversalMechanisms;
+import popovvad.findme.supportLibrary.UniversalMechanisms;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class del_MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button login_button;
     Button reg_button;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.login_button:
 
-                User user = new User(login_user.getText().toString(),login_password.getText().toString(),getApplicationContext());
+                del_User user = new del_User(login_user.getText().toString(), login_password.getText().toString(), getApplicationContext());
                 try {
                     if(user.login()){
                         Intent intentLog = new Intent(this, MapActivity.class);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.reg_button:
-                User userReg = new User(login_user.getText().toString(),login_password.getText().toString(),getApplicationContext());
+                del_User userReg = new del_User(login_user.getText().toString(), login_password.getText().toString(), getApplicationContext());
                 try {
                     if(userReg.registration()){
                         Intent intentReg = new Intent(this, MapActivity.class);

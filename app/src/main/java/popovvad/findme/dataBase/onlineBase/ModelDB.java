@@ -1,4 +1,4 @@
-package popovvad.findme.authorization;
+package popovvad.findme.dataBase.onlineBase;
 
 import android.os.AsyncTask;
 
@@ -10,7 +10,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AuthorizationRepository implements AuthorizationContract.Repository {
+public class ModelDB implements OnlineRepository {
 
     private String url;
     private String json;
@@ -33,15 +33,15 @@ public class AuthorizationRepository implements AuthorizationContract.Repository
     }
 
 
-    public String getUrl() {
+    private String getUrl() {
         return url;
     }
 
-    public String getJson() {
+    private String getJson() {
         return json;
     }
 
-    interface CompleteCallback {
+    public interface CompleteCallback {
         void onComplete(String response);
     }
 
@@ -54,7 +54,7 @@ public class AuthorizationRepository implements AuthorizationContract.Repository
 
         private final CompleteCallback callback;
 
-        public CreateRequest(CompleteCallback callback) {
+        CreateRequest(CompleteCallback callback) {
             this.callback = callback;
         }
 
@@ -84,6 +84,7 @@ public class AuthorizationRepository implements AuthorizationContract.Repository
                         .post(body)
                         .build();
                 Response response = client.newCall(request).execute();
+                assert response.body() != null;
                 return response.body() != null ? response.body().string() : "Ошибка соединения";
             } else if (request == "put") {
                 Request request = new Request.Builder()
@@ -107,4 +108,5 @@ public class AuthorizationRepository implements AuthorizationContract.Repository
         }
 
     }
+
 }

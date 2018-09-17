@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import java.util.concurrent.ExecutionException;
 
-import popovvad.findme.mySupportLibrary.UniversalMechanisms;
+import popovvad.findme.supportLibrary.UniversalMechanisms;
 
-public class SearchActivity extends AppCompatActivity{
+public class del_SearchActivity extends AppCompatActivity {
 
     private String response;
     private Double latitude;
@@ -69,7 +69,7 @@ public class SearchActivity extends AppCompatActivity{
                             Looper.prepare();
                         }
                         String json = "{\"username\" " + ": \"" + query + "\"" + "}";
-                        ServerInteraction serverInteraction = new ServerInteraction("http://popovvad.ru/UserCoordinates.php",
+                del_ServerInteraction serverInteraction = new del_ServerInteraction("http://popovvad.ru/UserCoordinates.php",
                                json,"post");
                         serverInteraction.execute();
                         try {

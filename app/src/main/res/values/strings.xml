@@ -2,10 +2,11 @@
     <!--Main strings-->
     <string name="app_name">FindMe</string>
     <string name="url_server">http://popovvad.ru/</string>
-    <string name="url_registration">registration.php</string>
+    <string name="url_registration">register.php</string>
     <string name="url_authorization">authorization.php</string>
     <string name="url_refreshCoordinates">refreshCoordinates.php</string>
     <string name="url_UserCoordinates">UserCoordinates.php</string>
+    <string name="yandex_map_kit_api_key">0f8d1d87-de3b-4c52-823d-94463b58dae7</string>
     <!--Autorization layout-->
     <string name="please_wait">Пожалуйста подождите</string>
     <string name="tittle_login">Авторизация</string>
@@ -14,6 +15,8 @@
     <string name="boolean_recall">Запомнить</string>
     <string name="action_reg">Регистрация</string>
     <string name="action_login">Войти</string>
+    <!--Map layout-->
+    <string name="toolbar_tittle">Местоположение пользователя: </string>
     <!--Navigation drawler-->
     <string name="drawer_open">Открыть</string>
     <string name="drawer_close">Закрыть</string>

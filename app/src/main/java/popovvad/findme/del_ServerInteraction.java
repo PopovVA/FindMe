@@ -14,13 +14,13 @@ import okhttp3.Response;
  * Created by Вадим on 21.03.2018.
  */
 
-public class ServerInteraction extends AsyncTask<String, Integer, String> {
+public class del_ServerInteraction extends AsyncTask<String, Integer, String> {
 
     private String url;
     private String json;
     private String request;
 
-    ServerInteraction(String url, String json, String request) {
+    del_ServerInteraction(String url, String json, String request) {
         this.url = url;
         this.json = json;
         this.request = request;

@@ -1,4 +1,4 @@
-package popovvad.findme.mySupportLibrary;
+package popovvad.findme.supportLibrary;
 
 import android.app.Activity;
 import android.content.Context;
