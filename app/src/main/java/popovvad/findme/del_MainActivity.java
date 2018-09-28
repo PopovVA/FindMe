@@ -15,6 +15,7 @@ import android.widget.EditText;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+import popovvad.findme.map.MapMainView;
 import popovvad.findme.supportLibrary.UniversalMechanisms;
 
 public class del_MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -74,7 +75,7 @@ public class del_MainActivity extends AppCompatActivity implements View.OnClickL
                 del_User user = new del_User(login_user.getText().toString(), login_password.getText().toString(), getApplicationContext());
                 try {
                     if(user.login()){
-                        Intent intentLog = new Intent(this, MapActivity.class);
+                        Intent intentLog = new Intent(this, MapMainView.class);
                         intentLog.putExtra("main_user", user.getUsername());
                         intentLog.putExtra("tittle_user", user.getUsername());
                         progressDialog.hide();
@@ -93,7 +94,7 @@ public class del_MainActivity extends AppCompatActivity implements View.OnClickL
                 del_User userReg = new del_User(login_user.getText().toString(), login_password.getText().toString(), getApplicationContext());
                 try {
                     if(userReg.registration()){
-                        Intent intentReg = new Intent(this, MapActivity.class);
+                        Intent intentReg = new Intent(this, MapMainView.class);
                         intentReg.putExtra("main_user", userReg.getUsername());
                         intentReg.putExtra("tittle_user", userReg.getUsername());
                         progressDialog.hide();

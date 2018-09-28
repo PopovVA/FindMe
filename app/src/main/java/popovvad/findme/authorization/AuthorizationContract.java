@@ -1,6 +1,7 @@
 package popovvad.findme.authorization;
 
 import android.content.Context;
+import android.content.Intent;
 
 public interface AuthorizationContract {
 
@@ -16,6 +17,8 @@ public interface AuthorizationContract {
         String getUsername();
 
         String getPassword();
+
+        void startSomeActivity(Intent intent);
     }
 
     interface Presenter {

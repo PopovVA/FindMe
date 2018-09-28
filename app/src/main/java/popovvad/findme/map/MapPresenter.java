@@ -24,7 +24,7 @@ public class MapPresenter implements MapContract.Presenter {
     private String response;
     private GeoPosition geoPosition;
 
-    public MapPresenter(MapView mView) {
+    public MapPresenter(MapMainView mView) {
         this.mView = mView;
         this.mRepository = new ModelDB();
         this.resources = mView.getContextView().getResources();
@@ -37,7 +37,8 @@ public class MapPresenter implements MapContract.Presenter {
 
     @Override
     public void onButtonSearchWasClicked() {
-        new Intent(mView.getContextView(), AuthorizationView.class);
+        Intent intent = new Intent(mView.getContextView(), AuthorizationView.class);
+        mView.startActivity(intent);
     }
 
     @Override
@@ -52,7 +53,8 @@ public class MapPresenter implements MapContract.Presenter {
 
     @Override
     public void onButtonExitWasClicked() {
-        new Intent(mView.getContextView(), AuthorizationView.class);
+        Intent intent = new Intent(mView.getContextView(), AuthorizationView.class);
+        mView.startActivity(intent);
     }
 
     @Override

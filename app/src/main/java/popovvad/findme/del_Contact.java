@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import popovvad.findme.map.MapView;
+import popovvad.findme.map.MapMainView;
 
 public class del_Contact extends AppCompatActivity implements View.OnClickListener {
 
@@ -114,7 +114,7 @@ public class del_Contact extends AppCompatActivity implements View.OnClickListen
                 progressDialog.hide();
                 break;
             case R.id.buttonFind:
-                Intent intentLog = new Intent(this, MapView.class);
+                Intent intentLog = new Intent(this, MapMainView.class);
                 intentLog.putExtra("tittle_user", user);
                 intentLog.putExtra("main_user", main_user);
                 intentLog.putExtra("longitude", longitude);

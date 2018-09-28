@@ -2,6 +2,7 @@ package popovvad.findme.authorization;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -88,5 +89,10 @@ public class AuthorizationView extends AppCompatActivity implements Authorizatio
     @Override
     public String getPassword() {
         return login_password.getText().toString();
+    }
+
+    @Override
+    public void startSomeActivity(Intent intent) {
+        startActivity(intent);
     }
 }

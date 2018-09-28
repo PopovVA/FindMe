@@ -115,7 +115,7 @@ public class del_SearchActivity extends AppCompatActivity {
                 lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        Intent intent = new Intent(mCtx, Contact.class);
+                        Intent intent = new Intent(mCtx, del_Contact.class);
                         intent.putExtra("user", query);
                         intent.putExtra("main_user", main_user);
                         intent.putExtra("latitude", latitude);

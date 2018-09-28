@@ -1,6 +1,7 @@
 package popovvad.findme.map;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.geometry.Point;
@@ -31,6 +32,8 @@ public interface MapContract {
         void setMapPoint();
 
         void moveCamera();
+
+        void startActivity(Intent intent);
 
     }
 

@@ -15,21 +15,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
+import com.yandex.mapkit.geometry.Point;
+import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.PlacemarkMapObject;
+import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
 import popovvad.findme.R;
+import popovvad.findme.supportLibrary.GeoPosition;
 import popovvad.findme.supportLibrary.UniversalMechanisms;
 
-public class MapView extends AppCompatActivity implements MapContract.View, NavigationView.OnNavigationItemSelectedListener {
+public class MapMainView extends AppCompatActivity implements MapContract.View, NavigationView.OnNavigationItemSelectedListener {
 
     private String main_user;
     private String tittle_user;
 
+    private MapView mapView;
     private MapContract.Presenter mPresenter;
 
-    private com.yandex.mapkit.mapview.MapView mapView;
     private PlacemarkMapObject mainPlacemarkMapObject;
     private Toolbar toolbar;
 
@@ -40,7 +45,7 @@ public class MapView extends AppCompatActivity implements MapContract.View, Navi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MapKitFactory.setApiKey(getString(R.string.yandex_map_kit_api_key));//Инициализация АПИ яндекса
+        MapKitFactory.setApiKey("0f8d1d87-de3b-4c52-823d-94463b58dae7");//Инициализация АПИ яндекса
         MapKitFactory.initialize(this);
         setContentView(R.layout.map_activity);
         init();
@@ -48,8 +53,7 @@ public class MapView extends AppCompatActivity implements MapContract.View, Navi
 
     public void init() {
         mPresenter = new MapPresenter(this);
-        Intent intent = getIntent();
-        setMainUsername(intent.getStringExtra("main_user"));
+        setMainUsername(getIntent().getStringExtra("main_user"));
 
         toolbar = findViewById(R.id.toolbar);
 
@@ -69,6 +73,18 @@ public class MapView extends AppCompatActivity implements MapContract.View, Navi
                 mPresenter.onButtonFabWasClicked();
             }
         });
+
+        mapView = findViewById(R.id.mapview);
+        GeoPosition geoPosition = new GeoPosition();
+        geoPosition.SetUpLocationListener(this);
+        mapView.getMap().move(
+                new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
+                new Animation(Animation.Type.SMOOTH, 0),
+                null);
+        mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Местоположение " + getMainUsername());
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -147,16 +163,16 @@ public class MapView extends AppCompatActivity implements MapContract.View, Navi
 
     @Override
     protected void onStop() {
+        super.onStop();
         mapView.onStop();
         MapKitFactory.getInstance().onStop();
-        super.onStop();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        MapKitFactory.getInstance().onStart();
         mapView.onStart();
+        MapKitFactory.getInstance().onStart();
     }
 
     @Override
@@ -180,5 +196,10 @@ public class MapView extends AppCompatActivity implements MapContract.View, Navi
                 mPresenter.getCameraPosition(),
                 mPresenter.getAnimation(),
                 null);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        startActivity(intent);
     }
 }

@@ -1,13 +1,18 @@
 package popovvad.findme.authorization;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
 
-import popovvad.findme.MapActivity;
 import popovvad.findme.R;
 import popovvad.findme.dataBase.onlineBase.ModelDB;
 import popovvad.findme.dataBase.onlineBase.OnlineRepository;
+import popovvad.findme.map.MapMainView;
+import popovvad.findme.supportLibrary.UniversalMechanisms;
+
 
 public class AuthorizationPresenter implements AuthorizationContract.Presenter {
 
@@ -29,6 +34,16 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
     @Override
     public void onButtonLoginWasClicked() {
         mView.showProgressDialog();
+        if (!checkPermission()) {
+            mView.hideProgressDialog();
+            mView.showToast("Для работы приложения необходимо разрешение на работу с геолокацией");
+            return;
+        }
+        if (!checkInternet()) {
+            mView.hideProgressDialog();
+            mView.showToast("Для работы приложения необходимо интернет соединение");
+            return;
+        }
         mRepository.setUrl(resources.getString(R.string.url_server) + resources.getString(R.string.url_authorization));
         mRepository.setJson(getJsonQuery());
         mRepository.setRequest("post");
@@ -38,9 +53,10 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
                 mView.hideProgressDialog();
                 if (response.equals("successful")) {
                     //авторизация пройдена успешна, перехожу к карте
-                    Intent intentReg = new Intent(mView.getContextView(), MapActivity.class);
-                    intentReg.putExtra("main_user", mView.getUsername());
-                    intentReg.putExtra("tittle_user", mView.getUsername());
+                    Intent intent = new Intent(mView.getContextView(), MapMainView.class);
+                    intent.putExtra("main_user", mView.getUsername());
+                    intent.putExtra("tittle_user", mView.getUsername());
+                    mView.startSomeActivity(intent);
                 } else {
                     mView.showToast(response);
                 }
@@ -52,6 +68,16 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
     @Override
     public void onButtonRegWasClicked() {
         mView.showProgressDialog();
+        if (!checkPermission()) {
+            mView.hideProgressDialog();
+            mView.showToast("Для работы приложения необходимо разрешение на работу с геолокацией");
+            return;
+        }
+        if (!checkInternet()) {
+            mView.hideProgressDialog();
+            mView.showToast("Для работы приложения необходимо интернет соединение");
+            return;
+        }
         mRepository.setUrl(resources.getString(R.string.url_server) + resources.getString(R.string.url_registration));
         mRepository.setJson(getJsonQuery());
         mRepository.setRequest("post");
@@ -61,14 +87,29 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
                 mView.hideProgressDialog();
                 if (response.equals("successful")) {
                     //авторизация пройдена успешна, перехожу к карте
-                    Intent intentReg = new Intent(mView.getContextView(), MapActivity.class);
-                    intentReg.putExtra("main_user", mView.getUsername());
-                    intentReg.putExtra("tittle_user", mView.getUsername());
+                    Intent intent = new Intent(mView.getContextView(), MapMainView.class);
+                    intent.putExtra("main_user", mView.getUsername());
+                    intent.putExtra("tittle_user", mView.getUsername());
+                    mView.startSomeActivity(intent);
                 } else {
                     mView.showToast(response);
                 }
             }
         });
+    }
+
+    private Boolean checkPermission() {
+        if (ContextCompat.checkSelfPermission(mView.getContextView(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        return true;
+    }
+
+    private Boolean checkInternet() {
+        if (!UniversalMechanisms.isOnline(mView.getContextView())) {
+            return false;
+        }
+        return true;
     }
 
     private String getJsonQuery() {
