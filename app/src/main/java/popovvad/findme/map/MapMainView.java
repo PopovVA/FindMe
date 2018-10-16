@@ -81,7 +81,8 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
                 new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
-        mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
+        mapView.getMap().getMapObjects().clear();
+        mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.ic_geolocation));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Местоположение " + getMainUsername());
         setSupportActionBar(toolbar);
@@ -95,15 +96,15 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
         if (id == R.id.nav_search) {
             mPresenter.onButtonSearchWasClicked();
         } else if (id == R.id.nav_contacts) {
-
+            mPresenter.onButtonContactsWasClicked();
         } else if (id == R.id.nav_settings) {
-
+            mPresenter.onButtonSettingsWasClicked();
         } else if (id == R.id.nav_exit) {
             mPresenter.onButtonExitWasClicked();
         } else if (id == R.id.nav_send) {
-
+            mPresenter.onButtonSendWasClicked();
         } else if (id == R.id.nav_faq) {
-
+            mPresenter.onButtonFaqWasClicked();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

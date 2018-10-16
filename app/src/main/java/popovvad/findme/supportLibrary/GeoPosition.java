@@ -54,8 +54,14 @@ public class GeoPosition implements LocationListener {
             setLongitude(imHere.getLongitude());
         } else
             imHere = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (imHere != null) {
             setLatitude(imHere.getLatitude());
             setLongitude(imHere.getLongitude());
+        } else {
+            //Если не определил координаты тогда по дефолту устанавливаю Москву
+            setLatitude(55.75370903771494);
+            setLongitude(37.61981338262558);
+        }
 }
 
     @Override

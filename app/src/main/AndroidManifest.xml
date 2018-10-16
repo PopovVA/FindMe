@@ -30,7 +30,7 @@
 
         </activity>
         <activity
-            android:name=".del_SearchActivity"
+            android:name=".search.SearchView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
