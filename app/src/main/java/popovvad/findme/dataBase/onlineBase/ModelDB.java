@@ -78,30 +78,27 @@ public class ModelDB implements OnlineRepository {
         private String ServerQuery() throws IOException {
             OkHttpClient client = new OkHttpClient();
             RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), getJson());
-            if (request == "post") {
+            if (request.equals("post")) {
                 Request request = new Request.Builder()
                         .url(getUrl())
                         .post(body)
                         .build();
                 Response response = client.newCall(request).execute();
-                assert response.body() != null;
                 return response.body() != null ? response.body().string() : "Ошибка соединения";
-            } else if (request == "put") {
+            } else if (request.equals("put")) {
                 Request request = new Request.Builder()
                         .url(getUrl())
                         .put(body)
                         .build();
                 Response response = client.newCall(request).execute();
-                assert response.body() != null;
                 return response.body() != null ? response.body().string() : "Ошибка соединения";
 
-            } else if (request == "get") {
+            } else if (request.equals("get")) {
                 Request request = new Request.Builder()
                         .url(getUrl())
                         .get()
                         .build();
                 Response response = client.newCall(request).execute();
-                assert response.body() != null;
                 return response.body() != null ? response.body().string() : "Ошибка соединения";
             }
             return "Ошибка соединения";

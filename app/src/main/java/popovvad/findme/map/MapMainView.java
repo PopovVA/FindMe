@@ -188,7 +188,8 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
 
     @Override
     public void setMapPoint() {
-        mapView.getMap().getMapObjects().addPlacemark(mPresenter.getMapPoint(), ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
+        mapView.getMap().getMapObjects().clear();
+        mapView.getMap().getMapObjects().addPlacemark(mPresenter.getMapPoint(), ImageProvider.fromResource(this, R.drawable.ic_geolocation));
     }
 
     @Override

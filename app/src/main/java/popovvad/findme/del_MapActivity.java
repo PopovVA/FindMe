@@ -189,7 +189,7 @@ public class del_MapActivity extends AppCompatActivity
         mapView = findViewById(R.id.mapview);
         if (mainPoint == null) {
             mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
-            mainPlacemarkMapObject = mapView.getMap().getMapObjects().addPlacemark(mainPoint, ImageProvider.fromResource(this, R.drawable.mygeo_light_icon));
+            mainPlacemarkMapObject = mapView.getMap().getMapObjects().addPlacemark(mainPoint, ImageProvider.fromResource(this, R.drawable.ic_geolocation));
         } else {
             mainPoint = new Point(geoPosition.getLatitude(), geoPosition.getLongitude());
             mainPlacemarkMapObject.setGeometry(mainPoint);

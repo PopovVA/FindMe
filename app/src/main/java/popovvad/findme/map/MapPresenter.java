@@ -11,7 +11,7 @@ import popovvad.findme.R;
 import popovvad.findme.authorization.AuthorizationView;
 import popovvad.findme.dataBase.onlineBase.ModelDB;
 import popovvad.findme.dataBase.onlineBase.OnlineRepository;
-import popovvad.findme.search.SearchView;
+import popovvad.findme.search.SearchMainView;
 import popovvad.findme.supportLibrary.GeoPosition;
 
 public class MapPresenter implements MapContract.Presenter {
@@ -25,7 +25,7 @@ public class MapPresenter implements MapContract.Presenter {
     private String response;
     private GeoPosition geoPosition;
 
-    public MapPresenter(MapMainView mView) {
+    MapPresenter(MapMainView mView) {
         this.mView = mView;
         this.mRepository = new ModelDB();
         this.resources = mView.getContextView().getResources();
@@ -38,13 +38,13 @@ public class MapPresenter implements MapContract.Presenter {
 
     @Override
     public void onButtonSearchWasClicked() {
-        Intent intent = new Intent(mView.getContextView(), SearchView.class);
+        Intent intent = new Intent(mView.getContextView(), SearchMainView.class);
         mView.startActivity(intent);
     }
 
     @Override
     public void onButtonContactsWasClicked() {
-        Intent intent = new Intent(mView.getContextView(), SearchView.class);
+        Intent intent = new Intent(mView.getContextView(), SearchMainView.class);
         mView.startActivity(intent);
     }
 

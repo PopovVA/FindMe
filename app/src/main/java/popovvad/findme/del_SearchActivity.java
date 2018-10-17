@@ -103,8 +103,6 @@ public class del_SearchActivity extends AppCompatActivity {
                 // находим список
                 String[] names = {"Найден : " + query};
                 ListView lvMain = (ListView) findViewById(R.id.lvMain);
-
-
                 // создаем адаптер
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(lvMain.getContext(),
                         R.layout.search_item, R.id.label, names);
@@ -134,9 +132,6 @@ public class del_SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
     }
 
 
