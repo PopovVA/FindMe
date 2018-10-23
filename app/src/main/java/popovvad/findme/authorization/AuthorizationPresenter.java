@@ -55,7 +55,7 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
                     //авторизация пройдена успешна, перехожу к карте
                     Intent intent = new Intent(mView.getContextView(), MapMainView.class);
                     intent.putExtra("main_user", mView.getUsername());
-                    intent.putExtra("tittle_user", mView.getUsername());
+                    intent.putExtra("tittle_user", "");
                     mView.startSomeActivity(intent);
                 } else {
                     mView.showToast(response);
@@ -89,7 +89,7 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
                     //авторизация пройдена успешна, перехожу к карте
                     Intent intent = new Intent(mView.getContextView(), MapMainView.class);
                     intent.putExtra("main_user", mView.getUsername());
-                    intent.putExtra("tittle_user", mView.getUsername());
+                    intent.putExtra("tittle_user", "");
                     mView.startSomeActivity(intent);
                 } else {
                     mView.showToast(response);

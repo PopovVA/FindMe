@@ -3,7 +3,6 @@ package popovvad.findme.map;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -19,7 +18,6 @@ import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
-import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
@@ -35,12 +33,9 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
     private MapView mapView;
     private MapContract.Presenter mPresenter;
 
-    private PlacemarkMapObject mainPlacemarkMapObject;
     private Toolbar toolbar;
 
     private ProgressDialog progressDialog;
-
-    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +46,14 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
         init();
     }
 
-    public void init() {
+    private void init() {
         mPresenter = new MapPresenter(this);
         setMainUsername(getIntent().getStringExtra("main_user"));
+        tittle_user = getIntent().getStringExtra("tittle_user");
 
         toolbar = findViewById(R.id.toolbar);
+        setTittleToolbar("Местоположение: " + getMainUsername());
+        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,17 +73,24 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
         });
 
         mapView = findViewById(R.id.mapview);
-        GeoPosition geoPosition = new GeoPosition();
-        geoPosition.SetUpLocationListener(this);
-        mapView.getMap().move(
-                new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
-                new Animation(Animation.Type.SMOOTH, 0),
-                null);
-        mapView.getMap().getMapObjects().clear();
-        mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.ic_geolocation));
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Местоположение " + getMainUsername());
-        setSupportActionBar(toolbar);
+        if (tittle_user.equals("")) {
+            GeoPosition geoPosition = new GeoPosition();
+            geoPosition.SetUpLocationListener(this);
+            mapView.getMap().move(
+                    new CameraPosition(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), 15.0f, 0.0f, 0.0f),
+                    new Animation(Animation.Type.SMOOTH, 0),
+                    null);
+            mapView.getMap().getMapObjects().clear();
+            mapView.getMap().getMapObjects().addPlacemark(new Point(geoPosition.getLatitude(), geoPosition.getLongitude()), ImageProvider.fromResource(this, R.drawable.ic_geo));
+        } else {
+            setTittleToolbar(getIntent().getStringExtra("tittle_user"));
+            mapView.getMap().move(
+                    new CameraPosition(new Point(getIntent().getDoubleExtra("latitude", 0), getIntent().getDoubleExtra("longitude", 0)), 15.0f, 0.0f, 0.0f),
+                    new Animation(Animation.Type.SMOOTH, 0),
+                    null);
+            mapView.getMap().getMapObjects().clear();
+            mapView.getMap().getMapObjects().addPlacemark(new Point(getIntent().getDoubleExtra("latitude", 0.00), getIntent().getDoubleExtra("longitude", 0.00)), ImageProvider.fromResource(this, R.drawable.ic_geo));
+        }
     }
 
     @Override
@@ -189,7 +194,7 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
     @Override
     public void setMapPoint() {
         mapView.getMap().getMapObjects().clear();
-        mapView.getMap().getMapObjects().addPlacemark(mPresenter.getMapPoint(), ImageProvider.fromResource(this, R.drawable.ic_geolocation));
+        mapView.getMap().getMapObjects().addPlacemark(mPresenter.getMapPoint(), ImageProvider.fromResource(this, R.drawable.ic_geo));
     }
 
     @Override
@@ -201,7 +206,7 @@ public class MapMainView extends AppCompatActivity implements MapContract.View, 
     }
 
     @Override
-    public void startActivity(Intent intent) {
+    public void startSomeActivity(Intent intent) {
         startActivity(intent);
     }
 }

@@ -39,13 +39,17 @@ public class MapPresenter implements MapContract.Presenter {
     @Override
     public void onButtonSearchWasClicked() {
         Intent intent = new Intent(mView.getContextView(), SearchMainView.class);
-        mView.startActivity(intent);
+        mView.showProgressDialog();
+        mView.startSomeActivity(intent);
+        mView.hideProgressDialog();
     }
 
     @Override
     public void onButtonContactsWasClicked() {
         Intent intent = new Intent(mView.getContextView(), SearchMainView.class);
-        mView.startActivity(intent);
+        mView.showProgressDialog();
+        mView.startSomeActivity(intent);
+        mView.hideProgressDialog();
     }
 
     @Override
@@ -57,7 +61,7 @@ public class MapPresenter implements MapContract.Presenter {
     public void onButtonExitWasClicked() {
         Intent intent = new Intent(mView.getContextView(), AuthorizationView.class);
         mView.showProgressDialog();
-        mView.startActivity(intent);
+        mView.startSomeActivity(intent);
         mView.hideProgressDialog();
     }
 
@@ -88,11 +92,7 @@ public class MapPresenter implements MapContract.Presenter {
             @Override
             public void onComplete(String response) {
                 mView.hideProgressDialog();
-                if (response.equals("successful")) {
-                    mView.showToast("Определил ваше местоположение");
-                } else {
-                    mView.showToast(response);
-                }
+                mView.showToast("Определил ваше местоположение");
             }
         });
     }

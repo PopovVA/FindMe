@@ -52,11 +52,13 @@ public class GeoPosition implements LocationListener {
         if (imHere != null) {
             setLatitude(imHere.getLatitude());
             setLongitude(imHere.getLongitude());
+            if (getLongitude() > 0 & getLatitude() > 0) return;
         } else
             imHere = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (imHere != null) {
             setLatitude(imHere.getLatitude());
             setLongitude(imHere.getLongitude());
+            if (getLongitude() > 0 & getLatitude() > 0) return;
         } else {
             //Если не определил координаты тогда по дефолту устанавливаю Москву
             setLatitude(55.75370903771494);

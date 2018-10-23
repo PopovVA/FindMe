@@ -30,13 +30,13 @@
 
         </activity>
         <activity
-            android:name=".search.SearchView"
+            android:name=".search.SearchMainView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
         <activity
-            android:name=".del_Contact"
+            android:name=".contact.ContactView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 

@@ -31,7 +31,7 @@ public class AuthorizationView extends AppCompatActivity implements Authorizatio
         init();
     }
 
-    public void init() {
+    private void init() {
         //Создаём Presenter и в аргументе передаём ему this - эта Activity расширяет интерфейс MainContract.View
         mPresenter = new AuthorizationPresenter(this);
 

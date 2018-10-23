@@ -39,7 +39,7 @@ public class SearchMainView extends AppCompatActivity implements SearchContract.
         main_user = intent.getStringExtra("main_user");
         setMainUser();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ListView lvMain = (ListView) findViewById(R.id.lvMain);
+        lvMain = (ListView) findViewById(R.id.lvMain);
         setSupportActionBar(toolbar);
 
         final SearchView searchView = findViewById(R.id.search_view);

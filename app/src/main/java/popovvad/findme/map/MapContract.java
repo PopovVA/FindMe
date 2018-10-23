@@ -33,7 +33,7 @@ public interface MapContract {
 
         void moveCamera();
 
-        void startActivity(Intent intent);
+        void startSomeActivity(Intent intent);
 
     }
 

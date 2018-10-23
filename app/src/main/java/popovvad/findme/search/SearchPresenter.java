@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import popovvad.findme.R;
+import popovvad.findme.contact.ContactView;
 import popovvad.findme.dataBase.onlineBase.ModelDB;
 import popovvad.findme.dataBase.onlineBase.OnlineRepository;
-import popovvad.findme.del_Contact;
 import popovvad.findme.supportLibrary.UniversalMechanisms;
 
 public class SearchPresenter implements SearchContract.Presenter {
@@ -22,7 +22,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     private Double longitude;
     private String query;
 
-    SearchPresenter(SearchMainView view) {
+    SearchPresenter(SearchMainView mView) {
         this.mView = mView;
         this.mRepository = new ModelDB();
         this.resources = mView.getContextView().getResources();
@@ -73,7 +73,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void onItemListWasClicked() {
-        Intent intent = new Intent(mView.getContextView(), del_Contact.class);
+        Intent intent = new Intent(mView.getContextView(), ContactView.class);
         intent.putExtra("user", getQuery());
         intent.putExtra("main_user", mView.getMainUser());
         intent.putExtra("latitude", latitude);
@@ -85,7 +85,7 @@ public class SearchPresenter implements SearchContract.Presenter {
         return "{\"username\" " + ": \"" + query + "\"" + "}";
     }
 
-    public void setQuery(String string) {
+    private void setQuery(String string) {
         this.query = string;
     }
 
